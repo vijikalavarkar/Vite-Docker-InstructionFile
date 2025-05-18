@@ -24,3 +24,21 @@ EXPOSE 3000
 RUN npm install -g serve
 
 CMD ["serve", "-s", "dist", "-l", "3000"]
+
+
+====================== DOKCER COPOSE ====================================
+version: '3'
+services:
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.frontend
+    ports:
+      - "3000:3000"
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.backend
+    ports:
+      - "8000:8000"
