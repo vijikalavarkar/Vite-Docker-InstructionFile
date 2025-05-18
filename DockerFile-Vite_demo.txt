@@ -1,0 +1,26 @@
+# Use official Node.js image
+FROM node:18
+
+# Create app directory
+WORKDIR /app
+
+# Copy package.json and package-lock.json (or yarn.lock)
+COPY package*.json ./
+
+# Install dependencies
+RUN npm install
+
+# Copy all project files
+COPY . .
+
+# Build the Vite app
+RUN npm run build
+
+# Expose port (optional, match your app's port)
+EXPOSE 3000
+
+# Start the app (serve production build)
+# Using serve package to serve build folder (install globally here)
+RUN npm install -g serve
+
+CMD ["serve", "-s", "dist", "-l", "3000"]
